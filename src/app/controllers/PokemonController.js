@@ -26,6 +26,7 @@ class PokemonController {
         page,
         limit,
         populate: { path: 'avatar', select: ['_id', 'path', 'url'] },
+        select: ['attributes', 'name', 'description', 'skills', 'type'],
       }
     );
 
@@ -89,6 +90,21 @@ class PokemonController {
     const pokemon = await Pokemon.create(req.body);
 
     return res.status(201).json(pokemon);
+  }
+
+  async show(req, res) {
+    const { id } = req.params;
+
+    try {
+      const pokemon = await Pokemon.findById(id)
+        .populate('avatar', ['_id', 'path', 'url'])
+        .select(['attributes', 'name', 'description', 'skills', 'type']);
+      return res.json(pokemon);
+    } catch (error) {
+      return res
+        .status(404)
+        .json({ success: false, error: 'Pokemon not found' });
+    }
   }
 }
 

@@ -11,6 +11,8 @@ class Database {
       useFindAndModify: true,
       useUnifiedTopology: true,
     });
+
+    mongoose.set('useCreateIndex', true);
   }
 }
 

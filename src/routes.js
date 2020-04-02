@@ -21,6 +21,7 @@ routes.use(authMiddlewares);
 routes.post('/avatar', uploads.single('avatar'), AvatarController.store);
 
 routes.get('/pokemons', PokemonController.index);
+routes.get('/pokemons/:id', PokemonController.show);
 routes.post('/pokemons', PokemonController.store);
 
 export default routes;
