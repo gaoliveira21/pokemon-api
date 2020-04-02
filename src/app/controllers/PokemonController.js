@@ -25,6 +25,21 @@ class PokemonController {
   }
 
   async store(req, res) {
+    const schema = yup.object().shape({
+      name: yup.string().required(),
+      description: yup.string().required(),
+      skills: yup.array().max(3).min(1),
+      type: yup.string().required(),
+    });
+
+    await schema
+      .validate(req.body)
+      .catch((err) =>
+        res
+          .status(400)
+          .json({ success: false, error: err.name, details: err.errors })
+      );
+
     const pokemon = await Pokemon.create(req.body);
 
     return res.status(201).json(pokemon);

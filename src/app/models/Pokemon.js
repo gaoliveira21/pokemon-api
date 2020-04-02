@@ -14,6 +14,10 @@ class Pokemon {
           type: String,
           required: true,
         },
+        avatar: {
+          type: mongoose.Schema.ObjectId,
+          ref: 'Avatar',
+        },
         skills: [
           {
             name: {
@@ -32,6 +36,14 @@ class Pokemon {
             },
           },
         ],
+        attributes: {
+          atk: { type: Number, required: true },
+          def: { type: Number, required: true },
+          spd: { type: Number, required: true },
+          spAtack: { type: Number, required: true },
+          spDef: { type: Number, required: true },
+          hp: { type: Number, required: true },
+        },
         type: {
           type: String,
           required: true,
