@@ -9,7 +9,9 @@ class AvatarController {
       url: `http://localhost:3333/avatar/${path}`,
     });
 
-    return res.status(201).json(avatar);
+    const { _id, url } = avatar;
+
+    return res.status(201).json({ _id, path, url });
   }
 }
 
