@@ -25,6 +25,7 @@ routes.put('/users', UserController.update);
 routes.get('/pokemons', PokemonController.index);
 routes.get('/pokemons/:id', PokemonController.show);
 routes.post('/pokemons', PokemonController.store);
+routes.put('/pokemons/:id', PokemonController.update);
 routes.delete('/pokemons/:id', PokemonController.delete);
 
 export default routes;

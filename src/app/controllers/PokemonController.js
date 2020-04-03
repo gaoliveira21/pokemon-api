@@ -55,7 +55,7 @@ class PokemonController {
           yup.object().shape({
             name: yup.string().required(),
             description: yup.string().required(),
-            force: yup.number().positive().max(120).min(15),
+            force: yup.number().positive().max(120).min(15).required(),
           })
         ),
       type: yup.string().required(),
@@ -105,6 +105,88 @@ class PokemonController {
       return res
         .status(404)
         .json({ success: false, error: 'Pokemon not found' });
+    }
+  }
+
+  async update(req, res) {
+    const schema = yup.object().shape({
+      name: yup.string(),
+      description: yup.string(),
+      avatar: yup.string(),
+      attributes: yup.object().shape({
+        atk: yup.number().positive(),
+        def: yup.number().positive(),
+        spd: yup.number().positive(),
+        spAtack: yup.number().positive(),
+        spDef: yup.number().positive(),
+        hp: yup.number().positive(),
+      }),
+      skills: yup
+        .array()
+        .max(3)
+        .min(1)
+        .of(
+          yup.object().shape({
+            name: yup.string().required(),
+            description: yup.string().required(),
+            force: yup.number().positive().max(120).min(15).required(),
+          })
+        ),
+      type: yup.string(),
+    });
+
+    await schema
+      .validate(req.body)
+      .catch((err) =>
+        res
+          .status(400)
+          .json({ success: false, error: err.name, details: err.errors })
+      );
+
+    const { id } = req.params;
+    const { avatar, name, attributes } = req.body;
+
+    try {
+      const pokemon = await Pokemon.findById(id);
+
+      if (name && name !== pokemon.name) {
+        const pokemonExists = await Pokemon.findOne({ name });
+
+        if (pokemonExists)
+          return res
+            .status(400)
+            .json({ success: false, error: 'Pokemon already exists' });
+      }
+
+      if (avatar && avatar !== pokemon.avatar) {
+        try {
+          const avatarExists = await Avatar.findById(avatar);
+
+          if (!avatarExists)
+            return res
+              .status(404)
+              .json({ success: false, error: 'Avatar not found' });
+        } catch (error) {
+          return res
+            .status(404)
+            .json({ success: false, error: 'Avatar not found' });
+        }
+      }
+
+      if (attributes && attributes !== pokemon.attributes) {
+        req.body.attributes = Object.assign(pokemon.attributes, attributes);
+      }
+
+      const newPokemon = await Pokemon.findByIdAndUpdate(id, req.body, {
+        new: true,
+      }).populate('avatar', ['_id', 'path', 'url']);
+
+      return res.json(newPokemon);
+    } catch (error) {
+      return res.status(404).json({
+        success: false,
+        error: 'Pokemon not found',
+      });
     }
   }
 
