@@ -50,6 +50,7 @@ class PokemonController {
         .array()
         .max(3)
         .min(1)
+        .required()
         .of(
           yup.object().shape({
             name: yup.string().required(),
@@ -105,6 +106,20 @@ class PokemonController {
         .status(404)
         .json({ success: false, error: 'Pokemon not found' });
     }
+  }
+
+  async delete(req, res) {
+    const { id } = req.params;
+
+    try {
+      await Pokemon.findByIdAndRemove(id);
+    } catch (error) {
+      return res
+        .status(404)
+        .json({ success: false, error: 'Pokemon not found' });
+    }
+
+    return res.json({ success: true, msg: 'Pokemon was removed' });
   }
 }
 

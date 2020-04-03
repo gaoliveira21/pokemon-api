@@ -22,12 +22,15 @@ class User {
       { timestamps: true }
     );
 
+    const generateHash = async (password) => {
+      const hash = await bcrypt.hash(password, 10);
+      return hash;
+    };
+
     // eslint-disable-next-line func-names
     UserSchema.pre('save', async function (next) {
-      const hash = await bcrypt.hash(this.password, 10);
-      this.password = hash;
-
-      next();
+      this.password = await generateHash(this.password);
+      return next();
     });
 
     return mongoose.model('User', UserSchema);
