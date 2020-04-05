@@ -14,6 +14,10 @@ class Database {
 
     mongoose.set('useCreateIndex', true);
   }
+
+  close() {
+    mongoose.connection.close();
+  }
 }
 
 export default new Database();

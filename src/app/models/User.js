@@ -1,5 +1,6 @@
 import bcrypt from 'bcryptjs';
 import mongoose from 'mongoose';
+import jwt from 'jsonwebtoken';
 
 class User {
   static init() {
@@ -33,7 +34,17 @@ class User {
       return next();
     });
 
-    return mongoose.model('User', UserSchema);
+    const UserModel = mongoose.model('User', UserSchema);
+
+    // eslint-disable-next-line func-names
+    UserModel.prototype.generateToken = function (authConfig) {
+      // eslint-disable-next-line dot-notation
+      return jwt.sign({ id: this['_id'] }, authConfig.secret, {
+        expiresIn: authConfig.expiresIn,
+      });
+    };
+
+    return UserModel;
   }
 }
 

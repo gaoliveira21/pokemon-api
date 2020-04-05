@@ -1,9 +1,9 @@
-import 'dotenv/config';
 import { resolve } from 'path';
 
 import express from 'express';
 import routes from './routes';
 
+import './config/dotenv';
 import './database';
 
 class App {
