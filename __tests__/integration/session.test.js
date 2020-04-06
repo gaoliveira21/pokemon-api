@@ -8,8 +8,8 @@ import User from '../../src/app/models/User';
 describe('Authentication', () => {
   beforeAll(async () => {
     await User.create({
-      name: 'Gabriel',
-      email: 'ga@mail.com',
+      name: 'User',
+      email: 'user@mail.com',
       password: '123456',
     });
   });
@@ -20,7 +20,7 @@ describe('Authentication', () => {
 
   it('should authenticated with valid credentials', async () => {
     const response = await request(App).post('/sessions').send({
-      email: 'ga@mail.com',
+      email: 'user@mail.com',
       password: '123456',
     });
 
@@ -29,7 +29,7 @@ describe('Authentication', () => {
 
   it('should not authenticate with invalid credentials', async () => {
     const response = await request(App).post('/sessions').send({
-      email: 'ga@mail.com',
+      email: 'user@mail.com',
       password: '234324',
     });
 
@@ -38,7 +38,7 @@ describe('Authentication', () => {
 
   it('should return jwt token when authenticated', async () => {
     const response = await request(App).post('/sessions').send({
-      email: 'ga@mail.com',
+      email: 'user@mail.com',
       password: '123456',
     });
 
@@ -53,7 +53,7 @@ describe('Authentication', () => {
 
   it('should access private routes when authenticated', async () => {
     const session = await request(App).post('/sessions').send({
-      email: 'ga@mail.com',
+      email: 'user@mail.com',
       password: '123456',
     });
 
