@@ -44,4 +44,25 @@ describe('Authentication', () => {
 
     expect(response.body).toHaveProperty('token');
   });
+
+  it('should not access private routes when not authenticated', async () => {
+    const response = await request(App).get('/pokemons');
+
+    expect(response.status).toBe(401);
+  });
+
+  it('should access private routes when authenticated', async () => {
+    const session = await request(App).post('/sessions').send({
+      email: 'ga@mail.com',
+      password: '123456',
+    });
+
+    const { token } = session.body;
+
+    const response = await request(App)
+      .get('/pokemons')
+      .set('authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(200);
+  });
 });
