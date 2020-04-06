@@ -8,12 +8,28 @@ import User from '../../src/app/models/User';
 
 /* eslint-disable no-undef */
 describe('Avatar upload', () => {
+  const data = {};
+
+  beforeEach(async () => {
+    await User.create({
+      name: 'User',
+      email: 'user@mail.com',
+      password: '123456',
+    });
+
+    data.user = await User.findOne({ email: 'user@mail.com' });
+  });
+
+  afterEach(async () => {
+    await User.deleteMany();
+  });
+
   afterAll(() => {
     db.close();
   });
 
   it('should upload a file', async () => {
-    const user = await User.findOne({ email: 'user@mail.com' });
+    const { user } = data;
 
     const response = await request(App)
       .post('/avatar')

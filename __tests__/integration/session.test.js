@@ -2,16 +2,21 @@ import request from 'supertest';
 import App from '../../src/app';
 import db from '../../src/database';
 
+import authConfig from '../../src/config/auth';
 import User from '../../src/app/models/User';
 
 /* eslint-disable no-undef */
 describe('Authentication', () => {
-  beforeAll(async () => {
+  beforeEach(async () => {
     await User.create({
       name: 'User',
       email: 'user@mail.com',
       password: '123456',
     });
+  });
+
+  afterEach(async () => {
+    await User.deleteMany();
   });
 
   afterAll(() => {
@@ -52,16 +57,11 @@ describe('Authentication', () => {
   });
 
   it('should access private routes when authenticated', async () => {
-    const session = await request(App).post('/sessions').send({
-      email: 'user@mail.com',
-      password: '123456',
-    });
-
-    const { token } = session.body;
+    const user = await User.findOne({ email: 'user@mail.com' });
 
     const response = await request(App)
       .get('/pokemons')
-      .set('authorization', `Bearer ${token}`);
+      .set('authorization', `Bearer ${user.generateToken(authConfig)}`);
 
     expect(response.status).toBe(200);
   });

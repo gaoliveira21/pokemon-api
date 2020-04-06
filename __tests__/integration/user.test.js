@@ -7,6 +7,18 @@ import User from '../../src/app/models/User';
 
 /* eslint-disable no-undef */
 describe('User', () => {
+  beforeEach(async () => {
+    await User.create({
+      name: 'User',
+      email: 'user@mail.com',
+      password: '123456',
+    });
+  });
+
+  afterEach(async () => {
+    await User.deleteMany();
+  });
+
   afterAll(() => {
     db.close();
   });
