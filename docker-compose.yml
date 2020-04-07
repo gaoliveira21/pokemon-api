@@ -1,0 +1,17 @@
+version: "3"
+services: 
+  web: 
+    build: .
+    command: yarn start
+    volumes:
+      - .:/home/app
+    ports:
+      - "3333:3333"
+    depends_on: 
+      - db
+  db:
+    image: mongo
+    volumes: 
+      - ./data:/data/db
+    ports:
+      - "27017:27017"
