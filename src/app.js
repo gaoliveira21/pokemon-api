@@ -20,6 +20,10 @@ class App {
       '/avatar',
       express.static(resolve(__dirname, '..', 'tmp', 'uploads'))
     );
+    this.server.use(
+      '/docs',
+      express.static(resolve(__dirname, '..', 'docs', 'apidoc'))
+    );
   }
 
   routes() {

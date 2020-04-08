@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "apidoc": {
+    "title": "Pokemon API",
+    "url": "http://localhost:3333"
+  },
   "scripts": {
     "test": "NODE_ENV=test jest --detectOpenHandles",
     "start": "nodemon src/server.js --ignore __tests__"
