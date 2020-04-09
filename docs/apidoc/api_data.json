@@ -1,6 +1,100 @@
 [
   {
     "type": "post",
+    "url": "/avatar",
+    "title": "Upload avatar",
+    "name": "UploadAvatar",
+    "group": "File",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "File",
+            "optional": false,
+            "field": "avatar",
+            "description": "<p>File for upload</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n   \"avatar\": \"/path/filename.ext\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "201": [
+          {
+            "group": "201",
+            "type": "String",
+            "optional": false,
+            "field": "_id",
+            "description": "<p>Avatar unique ID</p>"
+          },
+          {
+            "group": "201",
+            "type": "String",
+            "optional": false,
+            "field": "path",
+            "description": "<p>Avatar filename</p>"
+          },
+          {
+            "group": "201",
+            "type": "String",
+            "optional": false,
+            "field": "url",
+            "description": "<p>URL to access file</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": " HTTP/1.1 201 Created\n{\n   \"_id\": \"5e8626c31fe5ea90a105d00d\",\n   \"path\": \"f6421cd186d84127ba8dd71e69961585850050995.png\",\n   \"url\": \"http://localhost:3333/avatar/f6421cd186d84127ba8dd71e69961585850050995.png\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 400": [
+          {
+            "group": "Error 400",
+            "optional": false,
+            "field": "InvalidFileExtension",
+            "description": "<p>Invalid file sent</p>"
+          },
+          {
+            "group": "Error 400",
+            "optional": false,
+            "field": "NoFileSent",
+            "description": "<p>avatar is a required field and did not was sent</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "InvalidFileExtension:",
+          "content": " HTTP/1.1 400 Bad Request\n{\n   \"error\": \"file extension is not permitted\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "NoFileSent:",
+          "content": "HTTP/1.1 400 Bar Request\n{\n  \"error\": \"ValidationError\",\n  \"details\": [\n    \"file is a required field\"\n  ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/routes.js",
+    "groupTitle": "File"
+  },
+  {
+    "type": "post",
     "url": "/users",
     "title": "Create user",
     "name": "CreateUsers",

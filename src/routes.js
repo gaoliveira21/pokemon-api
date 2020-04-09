@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
-import multer from 'multer';
-import multerConfig from './config/multer';
+// import multer from 'multer';
+// import multerConfig from './config/multer';
 
 import UserController from './app/controllers/UserController';
 import SessionController from './app/controllers/SessionController';
@@ -11,7 +11,7 @@ import AvatarController from './app/controllers/AvatarController';
 import authMiddlewares from './app/middlewares/auth';
 
 const routes = new Router();
-const uploads = multer(multerConfig);
+// const uploads = multer(multerConfig).single('avatar');
 
 /**
  * @api {post} /users Create user
@@ -131,7 +131,50 @@ routes.post('/sessions', SessionController.store);
 
 routes.use(authMiddlewares);
 
-routes.post('/avatar', uploads.single('avatar'), AvatarController.store);
+/**
+ * @api {post} /avatar Upload avatar
+ * @apiName UploadAvatar
+ * @apiGroup File
+ *
+ * @apiParam {File} avatar File for upload
+ *
+ * @apiParamExample {json} Request-Example:
+ * {
+ *    "avatar": "/path/filename.ext"
+ * }
+ *
+ * @apiSuccess (201) {String} _id Avatar unique ID
+ * @apiSuccess (201) {String} path Avatar filename
+ * @apiSuccess (201) {String} url URL to access file
+ *
+ * @apiSuccessExample Success-Response:
+ *  HTTP/1.1 201 Created
+ * {
+ *    "_id": "5e8626c31fe5ea90a105d00d",
+ *    "path": "f6421cd186d84127ba8dd71e69961585850050995.png",
+ *    "url": "http://localhost:3333/avatar/f6421cd186d84127ba8dd71e69961585850050995.png"
+ * }
+ *
+ * @apiError (Error 400) InvalidFileExtension Invalid file sent
+ * @apiError (Error 400) NoFileSent avatar is a required field and did not was sent
+ *
+ * @apiErrorExample {json} InvalidFileExtension:
+ *  HTTP/1.1 400 Bad Request
+ * {
+ *    "error": "file extension is not permitted"
+ * }
+ *
+ * @apiErrorExample {json} NoFileSent:
+ *  HTTP/1.1 400 Bar Request
+ *  {
+ *    "error": "ValidationError",
+ *    "details": [
+ *      "file is a required field"
+ *    ]
+ *  }
+ *
+ */
+routes.post('/avatar', AvatarController.store);
 
 routes.put('/users', UserController.update);
 
