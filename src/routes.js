@@ -14,6 +14,15 @@ const routes = new Router();
 // const uploads = multer(multerConfig).single('avatar');
 
 /**
+ * @apiDefine Authorization
+ * @apiHeader {String} token Users unique access-token
+ * @apiHeaderExample {json} Header-Example:
+ * {
+ *    "Authorization": "Bearer eyJhbGcTOIJIUzI1NiIsInR5cCI6IkpXVCJ8.eyJpZCI6IjVlOGM4NWNkYjYyNjIzMDAyNzcwODQ2ZSIsImlhdCI6MTU4NjM2ODM0MSwiZXhwIjoxNTg2OTczMTQxfQ.hSRy7GFR3e3mFC3FTXom6wNA7ufsCO_KDLRtB29bxzQ"
+ * }
+ */
+
+/**
  * @api {post} /users Create user
  * @apiName CreateUsers
  * @apiGroup Users
@@ -136,6 +145,8 @@ routes.use(authMiddlewares);
  * @apiName UploadAvatar
  * @apiGroup File
  *
+ * @apiUse Authorization
+ *
  * @apiParam {File} avatar File for upload
  *
  * @apiParamExample {json} Request-Example:
@@ -143,9 +154,9 @@ routes.use(authMiddlewares);
  *    "avatar": "/path/filename.ext"
  * }
  *
- * @apiSuccess (201) {String} _id Avatar unique ID
- * @apiSuccess (201) {String} path Avatar filename
- * @apiSuccess (201) {String} url URL to access file
+ * @apiSuccess (Success 201) {String} _id Avatar unique ID
+ * @apiSuccess (Success 201) {String} path Avatar filename
+ * @apiSuccess (Success 201) {String} url URL to access file
  *
  * @apiSuccessExample Success-Response:
  *  HTTP/1.1 201 Created
@@ -176,6 +187,41 @@ routes.use(authMiddlewares);
  */
 routes.post('/avatar', AvatarController.store);
 
+/**
+ * @api {put} /user Update user
+ * @apiName UserUpdate
+ * @apiGroup Users
+ *
+ * @apiUse Authorization
+ *
+ * @apiParam {String} [name] New fullname of the user
+ * @apiParam {String} [email] New e-mail of the user
+ * @apiParam {String} [oldPassword] Old password of the user (<b>required if user have been changing his password<b>)
+ * @apiParam {String} [password] New password of the user
+ * @apiParam {String} [confirmPassword] This field need match with password (<b>required if user have been changing his password<b>)
+ *
+ * @apiParamExample {json} Request-Example:
+ * {
+ *    "email": "newemail@mail.com",
+ *    "name": "New name",
+ *    "oldPassword": "123456",
+ *    "password": "mynewpassword",
+ *    "confirmPassword": "mynewpassword"
+ * }
+ *
+ * @apiSuccess (Success 200) {String} _id User ID
+ * @apiSuccess (Success 200) {String} name Fullname of the user
+ * @apiSuccess (Success 200) {String} email E-mail of the user (example@example.com)
+ *
+ * @apiSuccessExample Success-Response:
+ *  HTTP/1.1 200 OK
+ *  {
+ *    "_id": "5e874a2bbedf244cc32b0d3a",
+ *    "name": "New name",
+ *    "email": "newemail@mail.com"
+ *  }
+ *
+ */
 routes.put('/users', UserController.update);
 
 routes.get('/pokemons', PokemonController.index);

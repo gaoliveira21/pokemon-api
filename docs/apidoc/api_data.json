@@ -27,23 +27,23 @@
     },
     "success": {
       "fields": {
-        "201": [
+        "Success 201": [
           {
-            "group": "201",
+            "group": "Success 201",
             "type": "String",
             "optional": false,
             "field": "_id",
             "description": "<p>Avatar unique ID</p>"
           },
           {
-            "group": "201",
+            "group": "Success 201",
             "type": "String",
             "optional": false,
             "field": "path",
             "description": "<p>Avatar filename</p>"
           },
           {
-            "group": "201",
+            "group": "Success 201",
             "type": "String",
             "optional": false,
             "field": "url",
@@ -91,7 +91,27 @@
     },
     "version": "0.0.0",
     "filename": "src/routes.js",
-    "groupTitle": "File"
+    "groupTitle": "File",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "token",
+            "description": "<p>Users unique access-token</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n   \"Authorization\": \"Bearer eyJhbGcTOIJIUzI1NiIsInR5cCI6IkpXVCJ8.eyJpZCI6IjVlOGM4NWNkYjYyNjIzMDAyNzcwODQ2ZSIsImlhdCI6MTU4NjM2ODM0MSwiZXhwIjoxNTg2OTczMTQxfQ.hSRy7GFR3e3mFC3FTXom6wNA7ufsCO_KDLRtB29bxzQ\"\n}",
+          "type": "json"
+        }
+      ]
+    }
   },
   {
     "type": "post",
@@ -328,5 +348,117 @@
     "version": "0.0.0",
     "filename": "src/routes.js",
     "groupTitle": "Users"
+  },
+  {
+    "type": "put",
+    "url": "/user",
+    "title": "Update user",
+    "name": "UserUpdate",
+    "group": "Users",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "name",
+            "description": "<p>New fullname of the user</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "email",
+            "description": "<p>New e-mail of the user</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "oldPassword",
+            "description": "<p>Old password of the user (<b>required if user have been changing his password<b>)</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "password",
+            "description": "<p>New password of the user</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "confirmPassword",
+            "description": "<p>This field need match with password (<b>required if user have been changing his password<b>)</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n   \"email\": \"newemail@mail.com\",\n   \"name\": \"New name\",\n   \"oldPassword\": \"123456\",\n   \"password\": \"mynewpassword\",\n   \"confirmPassword\": \"mynewpassword\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "_id",
+            "description": "<p>User ID</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Fullname of the user</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "email",
+            "description": "<p>E-mail of the user (example@example.com)</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"_id\": \"5e874a2bbedf244cc32b0d3a\",\n  \"name\": \"New name\",\n  \"email\": \"newemail@mail.com\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/routes.js",
+    "groupTitle": "Users",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "token",
+            "description": "<p>Users unique access-token</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n   \"Authorization\": \"Bearer eyJhbGcTOIJIUzI1NiIsInR5cCI6IkpXVCJ8.eyJpZCI6IjVlOGM4NWNkYjYyNjIzMDAyNzcwODQ2ZSIsImlhdCI6MTU4NjM2ODM0MSwiZXhwIjoxNTg2OTczMTQxfQ.hSRy7GFR3e3mFC3FTXom6wNA7ufsCO_KDLRtB29bxzQ\"\n}",
+          "type": "json"
+        }
+      ]
+    }
   }
 ]
