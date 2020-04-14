@@ -1,8 +1,5 @@
 import { Router } from 'express';
 
-// import multer from 'multer';
-// import multerConfig from './config/multer';
-
 import UserController from './app/controllers/UserController';
 import SessionController from './app/controllers/SessionController';
 import PokemonController from './app/controllers/PokemonController';
@@ -11,7 +8,6 @@ import AvatarController from './app/controllers/AvatarController';
 import authMiddlewares from './app/middlewares/auth';
 
 const routes = new Router();
-// const uploads = multer(multerConfig).single('avatar');
 
 /**
  * @apiDefine Authorization
@@ -221,10 +217,105 @@ routes.post('/avatar', AvatarController.store);
  *    "email": "newemail@mail.com"
  *  }
  *
+ * @apiError (Error 400) InvalidPassword password sent does not match with password in database
+ * @apiError (Error 400) UserExists The email sent already exists in database
+ * @apiError (Error 400) ValidationError Invalid params sent
+ *
+ * @apiErrorExample {json} InvalidPassword:
+ *  HTTP/1.1 401 Unauthorized
+ * {
+ *    "success": false,
+ *    "error": "Password does not match"
+ * }
+ *
+ * @apiErrorExample {json} UserExists:
+ *  HTTP/1.1 400 Bad Request
+ *  {
+ *    "success": false,
+ *    "error": "User already exists"
+ *  }
+ *
+ * @apiErrorExample {json} ValidationError:
+ * HTTP/1.1 400 Bad Request
+ * {
+ *    "success": false,
+ *    "error": "ValidationError",
+ *    "details": [
+ *      "password must be at least 6 characters"
+ *    ]
+ * }
  */
 routes.put('/users', UserController.update);
 
+/**
+ * @api {get} /pokemons List pokemons
+ * @apiName ListPokemons
+ * @apiGroup Pokemons
+ *
+ * @apiUse Authorization
+ *
+ * @apiParam {Number} [page] current page (<b>default value: 1</b>) - Query Param
+ * @apiParam {Number} [limit] limit of pokemons returned - Query Param
+ *
+ * @apiSuccess (Success 200) {Object} attributes an object with pokemon attributes: (atk, def, spd, spAtack, spDef, hp)
+ * @apiSuccess (Success 200) {String} _id Unique ID of a pokemon
+ * @apiSuccess (Success 200) {String} name Pokemon name
+ * @apiSuccess (Success 200) {String} description Pokemon description
+ * @apiSuccess (Success 200) {Object} avatar an object with avatar data: (_id, path, url)
+ * @apiSuccess (Success 200) {Array} skills an array of objects, each object contain the follow attributes: (_id, name, description, force)
+ * @apiSuccess (Success 200) {String} type Pokemon type
+ * @apiSuccess (Success 200) {Number} totalDocs Total of pokemons registered
+ * @apiSuccess (Success 200) {Number} limit Number of pokemons returned
+ * @apiSuccess (Success 200) {Number} totalPages Total of pages
+ * @apiSuccess (Success 200) {Number} page Current page
+ * @apiSuccess (Success 200) {Number} pagingCounter The starting sl. number of first document
+ * @apiSuccess (Success 200) {Bool} hasPrevPage Availability of prev page
+ * @apiSuccess (Success 200) {Number} prevPage Previous page number if available or NULL
+ * @apiSuccess (Success 200) {Number} nextPage Next page number if available or NULL
+ *
+ * @apiSuccessExample Success-Response:
+ *  HTTP/1.1 200 OK
+ * {
+ *    docs: [
+ *      attributes: {
+ *        atk: 250,
+ *        def: 70,
+ *        spd: 200,
+ *        spAtack: 150,
+ *        spDef: 100,
+ *        hp: 100
+ *      },
+ *      _id: "5e95d44bb3dbf80365e95e6b",
+ *      name: "Pikachu",
+ *      description: "this is my first pokemon",
+ *      avatar: {
+ *        _id: "5e95e86e808bbe07855738eb",
+ *        path: "ddb2e1b5bbdaef07bf1427eac05f1586882670610.jpg",
+ *        url: "http://localhost:3333/avatar/ddb2e1b5bbdaef07bf1427eac05f1586882670610.jpg"
+ *      },
+ *      "skills": [
+ *        {
+ *          _id: "5e95d44bb3dbf80365e95e6c",
+ *          name: "skill 01",
+ *          description: "first skill",
+ *          force: 100
+ *        }
+ *      ],
+ *      type: "eletric"
+ *    ],
+ *    totalDocs: 1,
+ *    limit: 10,
+ *    totalPages: 1,
+ *    page: 1,
+ *    pagingCounter: 1,
+ *    hasPrevPage: false,
+ *    hasNextPage: false,
+ *    prevPage: null,
+ *    nextPage: null
+ * }
+ */
 routes.get('/pokemons', PokemonController.index);
+
 routes.get('/pokemons/:id', PokemonController.show);
 routes.post('/pokemons', PokemonController.store);
 routes.put('/pokemons/:id', PokemonController.update);
