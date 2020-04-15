@@ -316,7 +316,65 @@ routes.put('/users', UserController.update);
  */
 routes.get('/pokemons', PokemonController.index);
 
+/**
+ * @api {get} /pokemons/:id Show Pokemon details
+ * @apiName ShowPokemon
+ * @apiGroup Pokemons
+ *
+ * @apiParam {String} :id Pokemon unique ID
+ *
+ * @apiSuccess (Success 200) {Object} attributes an object with pokemon attributes: (atk, def, spd, spAtack, spDef, hp)
+ * @apiSuccess (Success 200) {String} _id Unique ID of a pokemon
+ * @apiSuccess (Success 200) {String} name Pokemon name
+ * @apiSuccess (Success 200) {String} description Pokemon description
+ * @apiSuccess (Success 200) {Object} avatar an object with avatar data: (_id, path, url)
+ * @apiSuccess (Success 200) {Array} skills an array of objects, each object contain the follow attributes: (_id, name, description, force)
+ * @apiSuccess (Success 200) {String} type Pokemon type
+ *
+ * * @apiSuccessExample Success-Response:
+ *  HTTP/1.1 200 OK
+ * {
+ *      attributes: {
+ *        atk: 250,
+ *        def: 70,
+ *        spd: 200,
+ *        spAtack: 150,
+ *        spDef: 100,
+ *        hp: 100
+ *      },
+ *      _id: "5e95d44bb3dbf80365e95e6b",
+ *      name: "Pikachu",
+ *      description: "this is my first pokemon",
+ *      avatar: {
+ *        _id: "5e95e86e808bbe07855738eb",
+ *        path: "ddb2e1b5bbdaef07bf1427eac05f1586882670610.jpg",
+ *        url: "http://localhost:3333/avatar/ddb2e1b5bbdaef07bf1427eac05f1586882670610.jpg"
+ *      },
+ *      "skills": [
+ *        {
+ *          _id: "5e95d44bb3dbf80365e95e6c",
+ *          name: "skill 01",
+ *          description: "first skill",
+ *          force: 100
+ *        }
+ *      ],
+ *      type: "eletric"
+ * }
+ *
+ * @apiError (Error 404) InvalidID Not found a pokemon with ID sent
+ *
+ * @apiErrorExample {json} InvalidID:
+ *  HTTP/1.1 404 Not Found
+ *  {
+ *    success: false,
+ *    error: "Pokemon not found"
+ *  }
+ */
 routes.get('/pokemons/:id', PokemonController.show);
+
+/**
+ *
+ */
 routes.post('/pokemons', PokemonController.store);
 routes.put('/pokemons/:id', PokemonController.update);
 routes.delete('/pokemons/:id', PokemonController.delete);

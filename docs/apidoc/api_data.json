@@ -282,6 +282,110 @@
     }
   },
   {
+    "type": "get",
+    "url": "/pokemons/:id",
+    "title": "Show Pokemon details",
+    "name": "ShowPokemon",
+    "group": "Pokemons",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": ":id",
+            "description": "<p>Pokemon unique ID</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "attributes",
+            "description": "<p>an object with pokemon attributes: (atk, def, spd, spAtack, spDef, hp)</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "_id",
+            "description": "<p>Unique ID of a pokemon</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Pokemon name</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "description",
+            "description": "<p>Pokemon description</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "avatar",
+            "description": "<p>an object with avatar data: (_id, path, url)</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Array",
+            "optional": false,
+            "field": "skills",
+            "description": "<p>an array of objects, each object contain the follow attributes: (_id, name, description, force)</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "type",
+            "description": "<p>Pokemon type</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": " HTTP/1.1 200 OK\n{\n     attributes: {\n       atk: 250,\n       def: 70,\n       spd: 200,\n       spAtack: 150,\n       spDef: 100,\n       hp: 100\n     },\n     _id: \"5e95d44bb3dbf80365e95e6b\",\n     name: \"Pikachu\",\n     description: \"this is my first pokemon\",\n     avatar: {\n       _id: \"5e95e86e808bbe07855738eb\",\n       path: \"ddb2e1b5bbdaef07bf1427eac05f1586882670610.jpg\",\n       url: \"http://localhost:3333/avatar/ddb2e1b5bbdaef07bf1427eac05f1586882670610.jpg\"\n     },\n     \"skills\": [\n       {\n         _id: \"5e95d44bb3dbf80365e95e6c\",\n         name: \"skill 01\",\n         description: \"first skill\",\n         force: 100\n       }\n     ],\n     type: \"eletric\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 404": [
+          {
+            "group": "Error 404",
+            "optional": false,
+            "field": "InvalidID",
+            "description": "<p>Not found a pokemon with ID sent</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "InvalidID:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  success: false,\n  error: \"Pokemon not found\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/routes.js",
+    "groupTitle": "Pokemons"
+  },
+  {
     "type": "post",
     "url": "/users",
     "title": "Create user",

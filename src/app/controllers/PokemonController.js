@@ -100,6 +100,11 @@ class PokemonController {
       const pokemon = await Pokemon.findById(id)
         .populate('avatar', ['_id', 'path', 'url'])
         .select(['attributes', 'name', 'description', 'skills', 'type']);
+
+      if (!pokemon)
+        return res
+          .status(404)
+          .json({ success: false, error: 'Pokemon not found' });
       return res.json(pokemon);
     } catch (error) {
       return res
