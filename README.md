@@ -1,6 +1,6 @@
 <h1 align="center">Pokemon API</h1>
 <p align="center">
-  <img src="./github/pokemon-icon.png">
+  <img src="./.github/pokemon-icon.png">
 </p>
 
 <p align="center">API desenvolvida com NodeJS para CRUD de Pokemons</p>
@@ -8,24 +8,42 @@
 ## :computer: Requisitos
 
 - [NodeJS](https://nodejs.org/en/);
-- [Yarn (opcional)](https://classic.yarnpkg.com/pt-BR/docs/install/#debian-stable)
-- [Docker](https://docs.docker.com/get-docker/)
-- [Docker Compose](https://docs.docker.com/compose/install/)
+- [Yarn](https://classic.yarnpkg.com/pt-BR/docs/install/#debian-stable);
+- [Docker](https://docs.docker.com/get-docker/);
+- [Docker Compose](https://docs.docker.com/compose/install/).
 
-### ⚙️ Como rodar a aplicação
+### ⚙️ Como executar a aplicação
 
-- Instalar as dependências: execute `yarn`
+```bash
+# Clone este repositório
+$ git clone <https://github.com/gaoliveira21/pokemon-api.git>
 
-- Criar arquivo `.env` na raiz do projeto e usar arquivo `.env.example` como modelo;
+# Acesse a pasta do projeto no terminal/cmd
+$ cd pokemon-api
 
-- Executar o comando `docker-compose up -d --build`
+# Instalar as dependências
+$ yarn
 
-### Executando os testes
+# Criar arquivo .env na raiz do projeto usando o arquivo .env.example como modelo
+$ cp .env.example .env # Unix
+$ copy .env.example .env # Windows
 
-- **Após seguir os passos acima**, criar o arquivo `.env.test` na raiz do projeto, tomando como modelo o arquivo `.env.example`
+# Iniciando os containers
+$ docker-compose up -d --build
 
-- Executar `yarn test` para rodar os testes
+# O servidor inciará na porta:3333 - acesse <http://localhost:3333>
+```
 
+### :wrench: Executando os testes
+
+```bash
+# Criar arquivo .env.test seguindo como modelo o arquivo .env.example
+$ cp .env.example .env # Unix
+$ copy .env.example .env # Windows
+
+# Executando os testes
+$ yarn test
+```
 
 # Endpoints da API
 
