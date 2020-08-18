@@ -1,12 +1,18 @@
-# Pokemon API
+<h1 align="center">Pokemon API</h1>
+<p align="center">
+  <img src="./github/pokemon-icon.png">
+</p>
 
-## Requisitos
+<p align="center">API desenvolvida com NodeJS para CRUD de Pokemons</p>
 
-- [Yarn](https://classic.yarnpkg.com/pt-BR/docs/install/#debian-stable)
+## :computer: Requisitos
+
+- [NodeJS](https://nodejs.org/en/);
+- [Yarn (opcional)](https://classic.yarnpkg.com/pt-BR/docs/install/#debian-stable)
 - [Docker](https://docs.docker.com/get-docker/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
 
-### Executando o projeto
+### ⚙️ Como rodar a aplicação
 
 - Instalar as dependências: execute `yarn`
 
@@ -24,3 +30,12 @@
 # Endpoints da API
 
 - Importar o arquivo **[Insomnia_2020-04-03.json](https://github.com/gaoliveira21/pokemon-api/tree/master/docs)** para seu insomnia.
+
+---
+
+### :memo: License
+Esse projeto está sob MIT license. Veja [LICENSE](https://github.com/gaoliveira21/bootcamp-gostack-fastfeet-api/blob/master/LICENSE.md) para mais informações.
+
+---
+
+:construction_worker: Feito por **Gabriel Oliveira** :smiley: - **Contato:** <a href="https://www.linkedin.com/in/gabriel-jos%C3%A9-de-oliveira-633962197/">Linkedin</a>
