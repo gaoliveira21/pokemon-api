@@ -24,6 +24,8 @@
 - [ApiDoc](https://apidocjs.com/);
 - [Jest](https://jestjs.io/).
 
+---
+
 ### :computer: Requisitos
 
 - [NodeJS](https://nodejs.org/en/);
