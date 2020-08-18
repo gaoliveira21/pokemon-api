@@ -5,7 +5,26 @@
 
 <p align="center">API desenvolvida com NodeJS para CRUD de Pokemons</p>
 
-## :computer: Requisitos
+## :rocket: Features
+
+- [X] Cadastro e autenticação de usuários
+- [X] Upload de avatar do pokemon
+- [X] Atualização de dados do usuário
+- [X] Listagem de pokemons
+- [X] Detalhes de um pokemon expecífico
+- [X] Cadastro de pokemons
+- [X] Atualização de pokemons
+- [X] Exclusão de pokemons
+
+## :hammer_and_wrench: Tecnologias
+
+- [NodeJS](https://nodejs.org/en/);
+- [MongoDB](https://www.mongodb.com/);
+- [Docker](https://www.docker.com/);
+- [ApiDoc](https://apidocjs.com/);
+- [Jest](https://jestjs.io/).
+
+### :computer: Requisitos
 
 - [NodeJS](https://nodejs.org/en/);
 - [Yarn](https://classic.yarnpkg.com/pt-BR/docs/install/#debian-stable);
@@ -45,7 +64,11 @@ $ copy .env.example .env # Windows
 $ yarn test
 ```
 
-# Endpoints da API
+---
+
+### :clipboard: Documentação
+
+- Com a aplicação em execução acesse http://localhost:3333/docs
 
 - Importar o arquivo **[Insomnia_2020-04-03.json](https://github.com/gaoliveira21/pokemon-api/tree/master/docs)** para seu insomnia.
 
