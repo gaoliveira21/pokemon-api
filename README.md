@@ -1,20 +1,20 @@
-<h1 align="center">Pokemon API</h1>
 <p align="center">
   <img src="./.github/pokemon-icon.png">
 </p>
+<h1 align="center">Pokémon API</h1>
 
-<p align="center">API desenvolvida com NodeJS para CRUD de Pokemons</p>
+<p align="center">API desenvolvida com NodeJS para CRUD de Pokémons</p>
 
 ## :rocket: Features
 
 - [X] Cadastro e autenticação de usuários
 - [X] Upload de avatar do pokemon
 - [X] Atualização de dados do usuário
-- [X] Listagem de pokemons
+- [X] Listagem de pokémons
 - [X] Detalhes de um pokemon expecífico
-- [X] Cadastro de pokemons
-- [X] Atualização de pokemons
-- [X] Exclusão de pokemons
+- [X] Cadastro de pokémons
+- [X] Atualização de pokémons
+- [X] Exclusão de pokémons
 
 ## :hammer_and_wrench: Tecnologias
 
