@@ -59,8 +59,8 @@ $ docker-compose up -d --build
 
 ```bash
 # Criar arquivo .env.test seguindo como modelo o arquivo .env.example
-$ cp .env.example .env # Unix
-$ copy .env.example .env # Windows
+$ cp .env.example .env.test # Unix
+$ copy .env.example .env.test # Windows
 
 # Executando os testes
 $ yarn test
